@@ -8,11 +8,22 @@ class KeywordItem {
 	String literalValue
 	
     static constraints = {
-		label(blank:false, nullable:false, maxSize:50)
+		label(blank:true, nullable:true, 
+			validator: {
+				val, obj ->
+				if (obj.properties['itemType'] != KeywordItemType.SPACE && 
+					obj.properties['itemType'] != KeywordItemType.LITERAL) {
+					if (val == null || val.trim().length() == 0) {
+						return ['blank']
+					}
+				}
+			}
+		)
 		literalValue(blank:true, nullable:true, maxSize:50,
 			validator: {
-				if (itemType == KeywordItemType.LITERAL) {
-					if (literalValue == null || literalValue.trim().length() == 0) {
+				val, obj ->
+				if (obj.properties['itemType'] == KeywordItemType.LITERAL) {
+					if (val == null || val.trim().length() == 0) {
 						return ['blank']
 					}
 				}
