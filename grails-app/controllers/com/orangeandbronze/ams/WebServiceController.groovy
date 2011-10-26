@@ -5,7 +5,6 @@ import grails.converters.XML
 class WebServiceController {
 
     def getMobileServices = {
-		//render MobileService.list()..encodeAsXML()
 		def result = []
 		render MobileService.findAllByPublished(true).each {
 			def mobileService = it
