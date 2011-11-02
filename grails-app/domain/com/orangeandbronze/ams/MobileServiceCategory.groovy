@@ -7,8 +7,8 @@ class MobileServiceCategory {
 	static hasMany = [services : MobileService]
 	
 	static constraints = {
-		name(blank:false, nullable:false, unique:true)
-		description(blank:true, nullable:true)
+		name(blank:false, nullable:false, unique:true, maxSize:30)
+		description(blank:true, nullable:true, maxSize:500)
 	}
 			
 }
