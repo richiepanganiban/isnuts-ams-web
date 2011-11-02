@@ -1,8 +1,9 @@
 dataSource {
-    pooled = true
-    driverClassName = "org.hsqldb.jdbcDriver"
-    username = "sa"
-    password = ""
+	pooled = true
+	driverClassName = "com.mysql.jdbc.Driver"
+	username = "root"
+	password = ""
+	dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -14,7 +15,7 @@ environments {
     development {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            url = "jdbc:hsqldb:mem:devDB"
+			url = "jdbc:mysql://localhost:3306/isnuts?jdbcCompliantTruncation=false&autoReconnect=true"
         }
     }
     test {

@@ -1,12 +1,13 @@
 package com.orangeandbronze.ams
 
 import grails.converters.XML
+import grails.converters.JSON
 
 class WebServiceController {
 
     def getMobileServices = {
 		def result = []
-		render MobileService.findAllByPublished(true).each {
+		render MobileService.findAllByPublished(true, [sort: "title", order: "asc"]).each {
 			def mobileService = it
 			def mobileServiceMap = [activePromo: mobileService.activePromo, serviceType:mobileService.serviceType.toString(),
 				title:mobileService.title, description:mobileService.description, serviceNumber:mobileService.serviceNumber, 
@@ -27,6 +28,6 @@ class WebServiceController {
 			mobileServiceMap['keywordItems'] = keywordItems
 			result << mobileServiceMap
 		}
-		render result as XML
+		render result as JSON
 	}
 }

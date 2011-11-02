@@ -11,7 +11,7 @@ class MobileService {
 
 	String serviceNumber
 	boolean appendMobileToServiceNumber = false
-	static hasMany = [keywordItems:KeywordItem]
+	static hasMany = [keywordItems:KeywordItem, categories:MobileServiceCategory]
 	
     static constraints = {
 		serviceNumber(blank:false, nullable:false, maxSize:20)
