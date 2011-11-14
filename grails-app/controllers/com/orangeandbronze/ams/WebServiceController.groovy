@@ -25,7 +25,13 @@ class WebServiceController {
 				}
 				keywordItems << keywordItemMap
 			}
+			def categories = []
+			mobileService.categories.each {
+				def category = it
+				categories << category.name
+			}
 			mobileServiceMap['keywordItems'] = keywordItems
+			mobileServiceMap['categories'] = categories
 			result << mobileServiceMap
 		}
 		render result as JSON
