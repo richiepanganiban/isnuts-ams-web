@@ -70,7 +70,7 @@ class BootStrap {
 		textOffersCategory.save(flush:true)
 		
 		//add to featured
-		new FeaturedMobileService(mobileServiceInstance:service, priority:1).save(flush:true)
+		new FeaturedMobileService(mobileServiceInstance:service, priority:2).save(flush:true)
     }
     def destroy = {
     }
