@@ -3,6 +3,7 @@ import com.orangeandbronze.ams.MobileServiceType
 import com.orangeandbronze.ams.MobileServiceCategory
 import com.orangeandbronze.ams.KeywordItem
 import com.orangeandbronze.ams.KeywordItemType
+import com.orangeandbronze.ams.FeaturedMobileService
 
 class BootStrap {
 
@@ -52,6 +53,9 @@ class BootStrap {
 		textOffersCategory.addToServices(service)
 		textOffersCategory.save(flush:true)
 	
+		//add to featured
+		new FeaturedMobileService(mobileServiceInstance:service, priority:1).save(flush:true)
+		
 		// Super Duo
 		service = new MobileService(published:true, serviceType:MobileServiceType.SMS,
 			title:'Super DUO', description:'Unlimited calls to Globe/TM, Globe Landlines and selected landlines for only P599/30days.', serviceNumber:'8888').save(flush:true)
@@ -64,6 +68,9 @@ class BootStrap {
 		callOffersCategory.save(flush:true)
 		textOffersCategory.addToServices(service)
 		textOffersCategory.save(flush:true)
+		
+		//add to featured
+		new FeaturedMobileService(mobileServiceInstance:service, priority:1).save(flush:true)
     }
     def destroy = {
     }

@@ -1,13 +1,16 @@
 package com.orangeandbronze.ams
 
-import grails.converters.XML
 import grails.converters.JSON
+
+import com.google.gson.Gson
 
 class WebServiceController {
 
+	Gson gson = new Gson();
+	
     def getMobileServices = {
 		def result = []
-		render MobileService.findAllByPublished(true, [sort: "title", order: "asc"]).each {
+		MobileService.findAllByPublished(true, [sort: "title", order: "asc"]).each {
 			def mobileService = it
 			def mobileServiceMap = [activePromo: mobileService.activePromo, serviceType:mobileService.serviceType.toString(),
 				title:mobileService.title, description:mobileService.description, serviceNumber:mobileService.serviceNumber, 
@@ -34,6 +37,31 @@ class WebServiceController {
 			mobileServiceMap['categories'] = categories
 			result << mobileServiceMap
 		}
-		render result as JSON
+		renderBean(result) 
 	}
+	
+	def getMobileServiceCategories = {
+		def categories = MobileServiceCategory.listOrderByName()
+		def result = []
+		categories.each {
+			def category = it
+			result << [id:category.id, version:category.version, name:category.name]
+		}
+		renderBean(result)
+	}
+
+	def getFeaturedMobileServices = {
+		def featuredServices = FeaturedMobileService.listOrderByPriority()
+		def result = []
+		featuredServices.each {
+			def featuredService = it
+			result << ["mobileServiceInstance.id":featuredService.mobileServiceInstance.id, priority:featuredService.priority]
+		}
+		renderBean(result)
+	}
+
+	def renderBean(bean) {
+		render gson.toJson(bean)
+	}
+
 }
